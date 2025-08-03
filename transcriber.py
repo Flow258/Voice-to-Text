@@ -1311,9 +1311,9 @@ def cleanup_sessions():
     print("✅ Cleanup completed")
 
 if __name__ == "__main__":
-    print("🚀 Starting Jumpstart Fashion Voice-to-Text Assistant API v3.1.0")
-    print("🎯 Features: Optimized transcription, Smart filtering, Advanced NLP")
-    print("🏪 Supporting 750 stores nationwide")
+    print("Starting Jumpstart Fashion Voice-to-Text Assistant API v3.1.0")
+    print("Features: Optimized transcription, Smart filtering, Advanced NLP")
+    print("Supporting 750 stores nationwide")
     
     # Register cleanup function
     atexit.register(cleanup_sessions)
