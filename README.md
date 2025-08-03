@@ -1,91 +1,127 @@
-Jumpstart Voice-to-Text Assistant
+# Jumpstart Voice-to-Text Assistant
+
 A real-time voice transcription and intelligent NLP response system built for customer support in the fashion retail industry. This system captures audio from customer and agent microphones, transcribes speech using Whisper, and applies advanced NLP for sentiment analysis, intent classification, and auto-responses using Hugging Face Transformers.
-Features
 
-Dual-channel transcription (customer and agent)
-Real-time transcription via WebSocket
-NLP processing (intent, sentiment, entity extraction)
-Whisper integration (GPU/CPU supported)
-Duplicate filtering, urgency detection, escalation logic
+## Features
 
-Installation
+* Dual-channel transcription (customer and agent)
+* Real-time transcription via WebSocket
+* NLP processing (intent, sentiment, entity extraction)
+* Whisper integration (GPU/CPU supported)
+* Duplicate filtering, urgency detection, escalation logic
 
-Clone the Repository
+## Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/your-username/jumpstart-voice-assistant.git
 cd jumpstart-voice-assistant
+```
 
+### 2. Set Up Python Environment
 
-Set Up Python EnvironmentYou can use venv or conda:
+You can use `venv` or `conda`:
+
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
 
+### 3. Install Requirements
 
-Install Requirements
+```bash
 pip install -r requirements.txt
+```
 
-If requirements.txt is not available, install manually:
-pip install fastapi uvicorn pyaudio numpy torch transformers sentence-transformers openai-whisper SpeechRecognition
+If `requirements.txt` is not available, install manually:
 
-Note: You may need to install system dependencies for pyaudio.
-For Ubuntu:
+```bash
+pip install fastapi uvicorn pyaudio numpy torch \
+  transformers sentence-transformers openai-whisper \
+  SpeechRecognition
+```
+
+**Note:** You may need to install system dependencies for `pyaudio`. For Ubuntu:
+
+```bash
 sudo apt install portaudio19-dev python3-pyaudio
+```
 
 For Windows:
+
+```bash
 pip install pipwin
 pipwin install pyaudio
+```
 
+## Configuration
 
+Adjust the transcription settings in your app code or via API parameters (e.g., microphone index, timeout thresholds, model type: `tiny`, `base`, `small`, `medium`, or `large`).
 
-Configuration
-Adjust the transcription settings in your app code or via API parameters (e.g., microphone index, timeout thresholds, model type: tiny, base, small, medium, or large).
 Make sure to check the index of your audio devices:
+
+```python
 import speech_recognition as sr
 print(sr.Microphone.list_microphone_names())
+```
 
-NLP Models Used
+## NLP Models Used
 
-Intent Detection: facebook/bart-large-mnli
-Sentiment Analysis: cardiffnlp/twitter-roberta-base-sentiment-latest
-Embeddings: sentence-transformers for entity similarity
+* **Intent Detection:** `facebook/bart-large-mnli`
+* **Sentiment Analysis:** `cardiffnlp/twitter-roberta-base-sentiment-latest`
+* **Embeddings:** `sentence-transformers` for entity similarity
 
-Running the Server
+## Running the Server
+
+```bash
 python transcriber_api.py
+```
 
 This starts the FastAPI server at:
+
+```
 http://0.0.0.0:8000
+```
 
-WebSocket Usage
+## WebSocket Usage
+
 Connect to WebSocket for real-time transcription updates:
+
+```
 ws://localhost:8000/ws/{session_id}
+```
 
-Each session will stream live transcription updates with speaker labels (customer or agent) and associated NLP metadata.
-API Endpoints (Pluggable)
+Each session will stream live transcription updates with speaker labels (`customer` or `agent`) and associated NLP metadata.
 
-POST /start_session: Start a new transcription session
-GET /sessions: List active sessions
-GET /session/{id}: Fetch transcription logs
-GET /audio-devices: (Optional) Get available input devices
+## API Endpoints (Pluggable)
 
-Sample Use Case
+* `POST /start_session`: Start a new transcription session
+* `GET /sessions`: List active sessions
+* `GET /session/{id}`: Fetch transcription logs
+* `GET /audio-devices`: (Optional) Get available input devices
 
-Start the server.
-Plug in two mics or configure audio sources.
-Connect to WebSocket and stream audio.
-View structured transcriptions and smart replies from the assistant.
+## Sample Use Case
 
-Debugging Tips
+1. Start the server.
+2. Plug in two mics or configure audio sources.
+3. Connect to WebSocket and stream audio.
+4. View structured transcriptions and smart replies from the assistant.
 
-Check torch.cuda.is_available() to see if GPU is enabled.
-Set non_english=True if your inputs are not in English.
-Use .en models for faster English-only transcription.
-If microphone input fails, check system permissions or device indexes.
+## Debugging Tips
 
-Tested On
+* Check `torch.cuda.is_available()` to see if GPU is enabled.
+* Set `non_english=True` if your inputs are not in English.
+* Use `.en` models for faster English-only transcription.
+* If microphone input fails, check system permissions or device indexes.
 
-Python 3.9+
-Windows 10 / Ubuntu 22.04
-Whisper v20231106
-Transformers v4.41+
+## Tested On
 
-License
+* Python 3.9+
+* Windows 10 / Ubuntu 22.04
+* Whisper `v20231106`
+* Transformers `v4.41+`
+
+## License
+
 MIT License
